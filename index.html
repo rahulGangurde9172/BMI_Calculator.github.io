@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Playwrite+AR:wght@100..400&family=Poetsen+One&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Style+Script&display=swap');
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+    }
+body{
+    background: url('gym.jpg') ;
+        background-size: cover;
+        background-repeat: no-repeat;
+        /* filter: blur(10px); */
+        backdrop-filter: blur(5px);
+    }
+
+    .bmi-container{
+        justify-content: center;
+        /* border: 2px solid red ; */
+        padding: 10px;
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        flex-direction: column  ; 
+      
+        align-items: center;
+
+    }
+    .bmi-container h1{
+        color:rgb(5, 31, 31);
+        text-shadow: 0 4px 5px rgb(311, 319, 238);
+        }
+    .content-img-box img{
+        width: 70%;
+        height: 70%;
+   
+    }
+
+    .content-img-box    {
+        display: flex;
+        /* border: 2px solid red; */
+        /* flex-direction: column; */
+      
+        background: darkslategray;
+        
+       border-radius: .5rem;
+        padding: 10px;
+        justify-content: center;
+        align-items: center;
+        width: 40%;
+    }
+    
+  
+   
+    .content{
+        display: flex;
+        flex-direction: column;
+        /* border: 2px solid red; */
+    }
+    .content label{
+        /* padding: 5px; */
+        font-weight: 600;
+        color:rgb(5, 31, 31);
+    }
+    .content label input{
+        margin: 5px 0 5px 0;
+        padding: 5px;
+        border-radius: .3rem;
+        border: none;
+    }
+    .btn{
+        width: 50%;
+        padding: 5px;
+        border-radius: .3rem;
+        border: none;
+        font-weight: 600;
+        font-size: 1rem;
+        background: #04ff3a;
+        cursor: pointer;
+        color:rgb(5, 31, 31);
+    }
+    @media (max-width: 320px) {
+        .content-img-box {
+    width: 256px;
+    height: 80vh;
+}
+.content-img-box img {
+    display: none;
+
+}
+.bmi-container h1 {
+    
+    top: 66px;
+    position: absolute;
+}
+
+}
+
+
+</style>
+
+<body>
+    <div class="bmi-container">
+
+        <h1 class="heading"> BMI Calculator </h1>
+
+        <div class="content-img-box">
+            <img src="img-weight.png" alt="">
+            
+            <div class="BMI-content-box">
+                
+                
+                <div class="content">
+                    
+                    <label>Enter your name : <input type="text" id="name"> </label>
+                    <label>Enter your age : <input type="text" id="age"> </label>
+                    <label>Enter Height : <input type="number" id="height" placeholder="height in cm"> </label>
+                    <label>Enter Weight : <input type="number" id="weight" placeholder="weight in kg"></label>
+                    
+                    <button class="btn" id="btn">Check BMI</button>
+                    <div class="BMI-content">
+
+                        <span>your name : <strong id="result-name"></strong> </span><br>
+                        <span>your age : <strong id="result-age"></strong> </span><br>
+                        <span>your Height : <strong id="result-height"></strong> </span><br>
+                        <span>your Weight : <strong id="result-weight"></strong></span><br>
+                        <span>your BMI : <strong id="result-bmi"></strong></span><br>
+                        <span>your weight is : <strong id="result-category"></strong></span><br>
+                    </div>
+                </div>
+            </div>
+
+           
+
+        </div>
+        
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let button = document.getElementById('btn');
+
+            button.addEventListener('click', () => {
+                let name = document.getElementById('name').value;
+                let age = document.getElementById('age').value;
+                let height = document.getElementById('height').value;
+                let weight = document.getElementById('weight').value;
+
+                if (isNaN(height) || height <= 0) {
+                    alert("Please enter a valid height");
+                } else if (isNaN(weight) || weight <= 0) {
+                    alert("Please enter a valid weight");
+                } else {
+                    height = Number.parseFloat(height) / 100; // Convert height to meters
+                    weight = Number.parseFloat(weight); // Ensure weight is a number
+
+                    let BMI = weight / (height * height);
+                    document.getElementById('result-name').textContent = `${name}`
+                    document.getElementById('result-age').textContent = `${age}`;
+                    document.getElementById('result-height').textContent = `${height * 100} cm`; // Convert back to cm for display
+                    document.getElementById('result-weight').textContent = `${weight} kg`;
+                    document.getElementById('result-bmi').textContent = BMI.toFixed(2);
+
+
+                    // alert(`Your BMI is ${BMI}`);
+                    // console.log(`Calculated BMI: ${BMI}`);
+                    let category = '';
+                    if (BMI < 18.5) {
+                        category = "Underweight";
+                    } else if (BMI >= 18.5 && BMI < 24.9) {
+                        category = "Normal weight";
+                    } else if (BMI >= 25 && BMI < 29.9) {
+                        category = "Overweight";
+                    } else if (BMI >= 30) {
+                        category = "Obesity";
+                    }
+                    document.getElementById('result-category').textContent = category;
+                }
+            });
+
+        });
+    </script>
+</body>
+
+</html>
